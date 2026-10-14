@@ -52,18 +52,26 @@ Configs: yes. Pixel-identical: mostly, with caveats.
 
 ## Install
 
+### Fedora (one shot)
+
+Enables the needed COPRs, installs every package, deploys the dotfiles:
+
 ```bash
 git clone <this-repo> ~/dotfiles
 cd ~/dotfiles
+./fedora-install.sh
+```
 
-# 1. packages (Fedora)
-sudo dnf install $(grep -v '^#' packages.txt)
+COPRs used: `solopasha/hyprland` (Hyprland + matugen + swww + grimblast),
+`errornointernet/quickshell`, `atim/starship`.
 
-# 2. preview — changes nothing
-./install.sh --dry-run
+### Manual / other distro
 
-# 3. deploy (symlinks everything, backs up what's in the way)
-./install.sh
+```bash
+cd ~/dotfiles
+sudo dnf install $(grep -v '^#' packages.txt)   # or your package manager
+./install.sh --dry-run                           # preview, changes nothing
+./install.sh                                      # deploy (symlinks + backups)
 ```
 
 `install.sh` symlinks each entry into `~/.config` / `~`. Anything already there is
