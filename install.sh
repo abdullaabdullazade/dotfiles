@@ -68,6 +68,26 @@ if [ -d "$REPO/home" ]; then
   done
 fi
 
+# wallpapers -> ~/Pictures/Wallpapers (always copied, never symlinked)
+if [ -d "$REPO/wallpapers" ]; then
+  info "wallpapers -> ~/Pictures/Wallpapers"
+  [ "$DRY" = 1 ] || { mkdir -p "$HOME/Pictures/Wallpapers"; cp -an "$REPO"/wallpapers/* "$HOME/Pictures/Wallpapers/" 2>/dev/null || true; }
+fi
+
+# username path fix: configs hold absolute /home/abdullaxows paths.
+# if deploying under a different user, rewrite them (copy mode only — can't edit symlink targets).
+ORIG_USER="abdullaxows"
+if [ "${USER:-$(id -un)}" != "$ORIG_USER" ]; then
+  if [ "$MODE" = "copy" ]; then
+    info "rewriting /home/$ORIG_USER -> $HOME in deployed configs"
+    [ "$DRY" = 1 ] || grep -rIl "/home/$ORIG_USER" "$HOME/.config" 2>/dev/null \
+      | while read -r f; do sed -i "s#/home/$ORIG_USER#$HOME#g" "$f"; done
+  else
+    warn "you are not '$ORIG_USER': symlinked configs keep absolute /home/$ORIG_USER paths and will break."
+    warn "re-run with  ./install.sh --copy  to auto-rewrite them to your home."
+  fi
+fi
+
 echo
 ok "done."
 grep -q 'REPLACE_ME' "$HOME/.bashrc" 2>/dev/null && \

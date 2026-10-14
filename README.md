@@ -34,6 +34,21 @@ layout) with a [Quickshell](https://quickshell.org/) bar/shell and
 | `config/starship.toml` | prompt | |
 | `config/zshrc.d/` | zsh drop-ins | |
 | `home/` | `.bashrc` `.bash_profile` `.zshrc` `.gitconfig` | |
+| `wallpapers/` | images | copied to `~/Pictures/Wallpapers` by `install.sh` |
+
+## "Will someone get exactly my setup?"
+
+Configs: yes. Pixel-identical: mostly, with caveats.
+
+- **Wallpapers are included** (`wallpapers/` → `~/Pictures/Wallpapers`). Matugen
+  regenerates colours from the active wallpaper, so with the same wallpaper the
+  theme matches.
+- **Paths are absolute** (`/home/abdullaxows/...`). On the same username it just
+  works. On a different username, run `./install.sh --copy` — it rewrites those
+  paths to the new `$HOME`. Symlink mode cannot (it would edit repo files).
+- **Not included:** font / icon / cursor / GTK-theme *packages* themselves — the
+  configs point to them, install them via your package manager if a glyph or icon
+  is missing.
 
 ## Install
 
