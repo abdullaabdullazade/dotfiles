@@ -1,0 +1,29 @@
+# Core packages this setup needs (Fedora 43 / dnf).
+# Install with:  sudo dnf install $(grep -v '^#' packages.txt)
+hyprland
+hypridle
+hyprlock
+hyprpaper
+quickshell-git
+matugen
+swww
+mpvpaper
+kitty
+foot
+fish
+fuzzel
+wlogout
+cava
+btop
+mpv
+starship
+kvantum
+kvantum-qt5
+qt5ct
+qt6ct
+grimblast
+cliphist
+pavucontrol
+blueman
+polkit
+NetworkManager

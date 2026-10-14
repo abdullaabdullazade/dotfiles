@@ -1,0 +1,14 @@
+# never track secrets / machine state
+*.secret
+*.key
+*.pem
+.env
+.env.*
+*fish_variables*
+# editor / os cruft
+*~
+*.bak
+*.swp
+.DS_Store
+# backups created by install.sh
+.dotfiles-backup/
