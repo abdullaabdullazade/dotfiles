@@ -1,69 +1,40 @@
+<div align="center">
+
 # dotfiles
 
-My personal Hyprland rice on **Fedora 43**, built on top of
-[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) (the *illogical-impulse*
-layout) with a [Quickshell](https://quickshell.org/) bar/shell and
-[Matugen](https://github.com/InioX/matugen) dynamic theming.
+**Hyprland rice on Fedora 43** — [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) (*illogical-impulse*) · [Quickshell](https://quickshell.org/) · [Matugen](https://github.com/InioX/matugen)
 
-```
- OS       Fedora Linux 43 (Workstation)
- WM       Hyprland 0.51.1
- Shell    Quickshell (illogical-impulse) + fish
- Theme    Matugen (Material You, generated from wallpaper)
- Terminal kitty / foot
- Prompt   starship
- CPU      Intel Core i7-13700H   ·   GPU  Intel Iris Xe
-```
+<img src="assets/fastfetch.png" alt="fastfetch" width="760">
 
-## What's in here
+</div>
 
-| Path | Tool | Notes |
-|------|------|-------|
-| `config/hypr/` | Hyprland | compositor, hypridle, hyprlock, hyprpaper, monitors, workspaces |
-| `config/quickshell/` | Quickshell | the bar, widgets, launcher, OSD (illogical-impulse `ii`) |
-| `config/illogical-impulse/` | — | shell config.json + translations |
-| `config/matugen/` | Matugen | colour-generation templates (feeds GTK/Qt/kitty/etc.) |
-| `config/kitty/`, `config/foot/` | terminals | |
-| `config/fish/` | fish | `config.fish`, `conf.d/`, `functions/` (autogen completions excluded) |
-| `config/fuzzel/` | launcher | |
-| `config/wlogout/` | logout menu | |
-| `config/cava/` | audio visualiser | |
-| `config/btop/` | resource monitor | |
-| `config/mpv/` | media player | |
-| `config/gtk-3.0`, `gtk-4.0`, `qt5ct`, `qt6ct`, `Kvantum`, `kdeglobals`, `fontconfig` | theming | GTK + Qt look to match Matugen |
-| `config/starship.toml` | prompt | |
-| `config/zshrc.d/` | zsh drop-ins | |
-| `home/` | `.bashrc` `.bash_profile` `.zshrc` `.gitconfig` | |
-| `wallpapers/` | images | copied to `~/Pictures/Wallpapers` by `install.sh` |
+---
 
-## "Will someone get exactly my setup?"
+## Stack
 
-Configs: yes. Pixel-identical: mostly, with caveats.
-
-- **Wallpapers are included** (`wallpapers/` → `~/Pictures/Wallpapers`). Matugen
-  regenerates colours from the active wallpaper, so with the same wallpaper the
-  theme matches.
-- **Paths are absolute** (`/home/abdullaxows/...`). On the same username it just
-  works. On a different username, run `./install.sh --copy` — it rewrites those
-  paths to the new `$HOME`. Symlink mode cannot (it would edit repo files).
-- **Not included:** font / icon / cursor / GTK-theme *packages* themselves — the
-  configs point to them, install them via your package manager if a glyph or icon
-  is missing.
+| | |
+|---|---|
+| **OS** | Fedora Linux 43 (Workstation) |
+| **WM** | Hyprland 0.51.1 |
+| **Shell UI** | Quickshell (illogical-impulse) |
+| **Theme** | Matugen — Material You, generated from wallpaper |
+| **Terminal** | kitty / foot |
+| **Shell** | fish + starship |
+| **CPU / GPU** | Intel Core i7-13700H · Intel Iris Xe |
 
 ## Install
 
-### Fedora (one shot)
+### Fedora — one shot
 
-Enables the needed COPRs, installs every package, deploys the dotfiles:
+Enables the COPRs, installs every package, deploys the dotfiles:
 
 ```bash
-git clone <this-repo> ~/dotfiles
+git clone https://github.com/abdullaabdullazade/dotfiles ~/dotfiles
 cd ~/dotfiles
 ./fedora-install.sh
 ```
 
-COPRs used: `solopasha/hyprland` (Hyprland + matugen + swww + grimblast),
-`errornointernet/quickshell`, `atim/starship`.
+> COPRs: `solopasha/hyprland` · `errornointernet/quickshell` · `atim/starship`
 
 ### Manual / other distro
 
@@ -71,32 +42,54 @@ COPRs used: `solopasha/hyprland` (Hyprland + matugen + swww + grimblast),
 cd ~/dotfiles
 sudo dnf install $(grep -v '^#' packages.txt)   # or your package manager
 ./install.sh --dry-run                           # preview, changes nothing
-./install.sh                                      # deploy (symlinks + backups)
+./install.sh                                      # deploy
 ```
 
-`install.sh` symlinks each entry into `~/.config` / `~`. Anything already there is
-moved to `~/.dotfiles-backup/<timestamp>/` first, so nothing is lost. Use
-`./install.sh --copy` to copy instead of symlink.
+`install.sh` symlinks each entry into `~/.config` and `~`. Anything already there
+is moved to `~/.dotfiles-backup/<timestamp>/` first — nothing is lost.
+Use `--copy` to copy instead of symlink.
 
-Because it's symlinks, editing a file in `~/.config` **is** editing the repo —
-`git add -p` and commit to version a change.
+## What's inside
 
-## See what's on the machine
+| Path | Tool |
+|------|------|
+| `config/hypr/` | Hyprland — compositor, hypridle, hyprlock, hyprpaper, monitors, workspaces |
+| `config/quickshell/` | Quickshell — bar, widgets, launcher, OSD (illogical-impulse `ii`) |
+| `config/illogical-impulse/` | shell `config.json` + translations |
+| `config/matugen/` | Matugen colour-generation templates (feeds GTK / Qt / kitty …) |
+| `config/kitty/` · `config/foot/` | terminals |
+| `config/fish/` | `config.fish`, `conf.d/`, `functions/` |
+| `config/fuzzel/` · `config/wlogout/` | launcher · logout menu |
+| `config/cava/` · `config/btop/` · `config/mpv/` | audio visualiser · monitor · media |
+| `config/gtk-*` `qt5ct` `qt6ct` `Kvantum` `kdeglobals` `fontconfig` | GTK + Qt theming |
+| `config/starship.toml` | prompt |
+| `home/` | `.bashrc` `.bash_profile` `.zshrc` `.gitconfig` |
+| `wallpapers/` | copied to `~/Pictures/Wallpapers` |
+
+## Tools
 
 ```bash
-./sysinfo.sh
+./sysinfo.sh        # host, hardware, and which tracked config each tool uses
+./install.sh --help
 ```
 
-Prints host, kernel, hardware, and a table of every tracked tool: whether its
-config is present in the repo and whether the package is installed.
+## Will someone get exactly my setup?
+
+Configs: yes. Pixel-identical: mostly, with caveats.
+
+- **Wallpaper included** (`wallpapers/`). Matugen regenerates colours from it, so
+  the theme matches.
+- **Paths are absolute** (`/home/abdullaxows/...`). Same username → just works.
+  Different username → run `./install.sh --copy`, which rewrites them to your `$HOME`.
+- **Not included:** font / icon / cursor / GTK-theme *packages* — install via your
+  package manager if a glyph or icon is missing (`fedora-install.sh` handles the common ones).
 
 ## Secrets
 
-No live secrets are committed. Anything sensitive is replaced with `REPLACE_ME`
+No live secrets committed. Sensitive values are replaced with `REPLACE_ME`
 (e.g. `LLM_API_KEY` in `home/.bashrc`) — set the real value locally after install.
 `.env`, keys, and `fish_variables` are gitignored.
 
 ## Credits
 
-- [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) — base rice / illogical-impulse
-- [Quickshell](https://quickshell.org/) · [Matugen](https://github.com/InioX/matugen) · [Hyprland](https://hyprland.org/)
+[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) · [Quickshell](https://quickshell.org/) · [Matugen](https://github.com/InioX/matugen) · [Hyprland](https://hyprland.org/)
