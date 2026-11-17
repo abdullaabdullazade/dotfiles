@@ -64,6 +64,7 @@ Use `--copy` to copy instead of symlink.
 | `config/gtk-*` `qt5ct` `qt6ct` `Kvantum` `kdeglobals` `fontconfig` | GTK + Qt theming |
 | `config/starship.toml` | prompt |
 | `home/` | `.bashrc` `.bash_profile` `.zshrc` `.gitconfig` |
+| `bin/` | scripts linked into `~/.local/bin` (see [Display switching](#display-switching)) |
 | `wallpapers/` | copied to `~/Pictures/Wallpapers` |
 
 ## Tools
@@ -72,6 +73,22 @@ Use `--copy` to copy instead of symlink.
 ./sysinfo.sh        # host, hardware, and which tracked config each tool uses
 ./install.sh --help
 ```
+
+## Display switching
+
+`bin/scr` moves every workspace between the laptop panel (`eDP-1`) and an HDMI
+monitor (`HDMI-A-1`), then restarts the Quickshell bar so it follows the active screen.
+Works from bash, fish and zsh.
+
+```bash
+scr-laptop   # laptop only, HDMI off
+scr-hdmi     # HDMI only, laptop off
+scr-extend   # laptop left, HDMI right
+scr-mirror   # HDMI is the main screen, laptop mirrors it
+```
+
+`scr <mode>` works too, and `src-*` aliases cover the common typo.
+Run `scr-laptop` before unplugging HDMI.
 
 ## Will someone get exactly my setup?
 

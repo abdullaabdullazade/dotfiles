@@ -68,6 +68,13 @@ if [ -d "$REPO/home" ]; then
   done
 fi
 
+# bin/* -> ~/.local/bin (display switcher etc.)
+if [ -d "$REPO/bin" ]; then
+  for src in "$REPO"/bin/*; do
+    deploy "$src" "$HOME/.local/bin/$(basename "$src")"
+  done
+fi
+
 # wallpapers -> ~/Pictures/Wallpapers (always copied, never symlinked)
 if [ -d "$REPO/wallpapers" ]; then
   info "wallpapers -> ~/Pictures/Wallpapers"

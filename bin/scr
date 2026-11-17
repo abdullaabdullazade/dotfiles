@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Hyprland display switcher: scr laptop|hdmi|extend|mirror
+set -u
+mode="${1:-$(basename "$0" | sed -E 's/^s(cr|rc)-//')}"
+
+move_all() {
+    for ws in $(hyprctl workspaces -j | grep -oP '^\s*"id": \K-?\d+'); do
+        hyprctl dispatch moveworkspacetomonitor "$ws" "$1" >/dev/null
+    done
+}
+
+restart_bar() {
+    pkill -x qs
+    sleep 0.5
+    hyprctl dispatch exec "qs -c ii" >/dev/null
+}
+
+case "$mode" in
+    laptop)
+        hyprctl keyword monitor eDP-1,1920x1200@60,0x0,1 >/dev/null
+        sleep 1; move_all eDP-1
+        hyprctl keyword monitor HDMI-A-1,disable >/dev/null ;;
+    hdmi)
+        hyprctl keyword monitor HDMI-A-1,1920x1080@60,0x0,1 >/dev/null
+        sleep 1; move_all HDMI-A-1
+        hyprctl keyword monitor eDP-1,disable >/dev/null ;;
+    extend)
+        hyprctl keyword monitor eDP-1,1920x1200@60,0x0,1 >/dev/null
+        hyprctl keyword monitor HDMI-A-1,1920x1080@60,1920x0,1 >/dev/null ;;
+    mirror)
+        hyprctl keyword monitor HDMI-A-1,1920x1080@60,0x0,1 >/dev/null
+        sleep 1; move_all HDMI-A-1
+        hyprctl keyword monitor eDP-1,1920x1200@60,0x0,1,mirror,HDMI-A-1 >/dev/null ;;
+    *)
+        echo "usage: scr laptop|hdmi|extend|mirror"; exit 1 ;;
+esac
+restart_bar
+echo "scr: $mode"
